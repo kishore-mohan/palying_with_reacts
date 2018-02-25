@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Its play time with react</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+  <div id='container'></div>
+  <script type="text/jsx">
+    var Notes = React.createClass({
+      getInitialState: function() {
+        return {editing: false}
+      },
+      edit: function() {
+        this.setState({editing: true});
+      },
+      save: function() {
+        this.setState({editing: false});
+      },
+      remove: function() {
+        alert("Remove comment");
+      },
+      renderForm: function(){
+        return(
+        <div>
+            <textarea defaultValue={this.props.children}></textarea> 
+            <button onClick={this.save}>Save</button>
+          </div>
+        );
+      },
+      renderNormal: function(){
+         return(
+            <div>
+              <div>{this.props.children}</div>
+              <button onClick={this.edit}>Edit</button>
+              <button onClick={this.remove}>Remove</button>
+            </div>
+          );
+      },
+
+      render: function() {
+        if(this.state.editing){
+          return this.renderForm();
+        }else{
+          return this.renderNormal();
+        }
+      }
+    });
+
+    var Comments = React.createClass({
+      getInitialState: function(){
+        return {comments: ['Mars', 'Venus', 'Earth']}
+      },
+      render: function(){
+        return(
+          <div className='board'>
+            {
+              this.state.comments.map(function (text, i) {
+                return(<Notes key={i}>{text}</Notes>)
+              }
+              )
+            }
+          </div>
+        );
+      }
+    });
+
+    React.render(
+      <Comments />
+      , document.getElementById('container')
+    );
+
+  </script>
+</body>
+</html>
