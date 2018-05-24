@@ -3,5 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
 import EventHandler from './EventHandler'
+import NumberList from './NumberList'
 
-ReactDOM.render(<EventHandler />, document.getElementById('root'));
+const num = ["React", "Angular"]
+ReactDOM.render(<NumberList num={num} />, document.getElementById('root'));
